@@ -1,7 +1,7 @@
 const fs = require("fs");
 const express = require("express");
 const app = express();
-// const path = require('path');
+const uuid = require("./public/assets/uuid");
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -15,12 +15,14 @@ app.get("*", (req, res) => {
 });
 
 app.get("/api/notes", (req, res) => {
-  fs.readFile(__dirname + "/dn/db.json", "utf8", (err, data) => {
+  fs.readFile(__dirname + "/db/db.json", "utf8", (err, data) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: `Error reading file: ${err}` });
     } else {
+      console.log(data);  
       const notes = JSON.parse(data);
+      console.log(notes);
       res.json(notes);
     }
   });
@@ -30,16 +32,19 @@ app.post("/api/notes", (req, res) => {
   fs.readFile(__dirname + "/db/db.json", "utf8", (err, data) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: `Error reading file: ${err}` });
     } else {
       const notes = JSON.parse(data);
-      const newNote = req.body;
-      newNote.id = generateUniqueId();
+      const newNote = {
+        title: req.body.title,
+        text: req.body.text,
+        id: uuid(),
+      };
       notes.push(newNote);
-      fs.writeFile(__dirname + "db/dn.json", JSON.stringify(notes), (err) => {
+      fs.writeFile(__dirname + "/db/db.json", JSON.stringify(notes), (err) => {
         if (err) {
           console.log(err);
-          res.status(500).json({ error: `Internal server error` });
+          res.status(500).json({ error: `Error writing file: ${err}` });
         } else {
           res.json(newNote);
         }
