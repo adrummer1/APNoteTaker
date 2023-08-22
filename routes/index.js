@@ -9,6 +9,10 @@ const app = express();
 app.use('/apiroutes', apiRouter);
 app.use('/htmlroutes', htmlRouter);
 
+app.get('/notes', (req, res) =>
+    res.sendFile(path.join(__dirname, '/public/notes.html'))
+);
+
 app.post('/notes', (req, res) => {
     try {
         store.saveNote(req.body);

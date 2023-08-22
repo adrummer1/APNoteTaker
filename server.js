@@ -20,9 +20,9 @@ app.get('/api', (req, res) =>
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );    
 
-app.get('/notes', (req, res) =>
-    res.sendFile(path.join(__dirname, '/public/notes.html'))
-);
+// app.get('/notes', (req, res) =>
+//     res.sendFile(path.join(__dirname, '/public/notes.html'))
+// );
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
