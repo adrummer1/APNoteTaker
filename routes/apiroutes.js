@@ -4,7 +4,7 @@ const uuid = require('../helpers/uuid');
 
 
 api.get("/notes", (req, res) => {
-    fs.readFile("/db/db.json", "utf8", (err, data) => {
+    fs.readFile("db/db.json", "utf8", (err, data) => {
       if (err) {
         console.log(err);
         res.status(500).json({ error: `Error reading file: ${err}` });
@@ -16,7 +16,7 @@ api.get("/notes", (req, res) => {
   });
   
   api.post("/notes", (req, res) => {
-    fs.readFile("/db/db.json", "utf8", (err, data) => {
+    fs.readFile("db/db.json", "utf8", (err, data) => {
       if (err) {
         console.log(err);
         res.status(500).json({ error: `Error reading file: ${err}` });
@@ -28,7 +28,7 @@ api.get("/notes", (req, res) => {
           id: uuid(),
         };
         notes.push(newNote);
-        fs.writeFile("/db/db.json", JSON.stringify(notes), (err) => {
+        fs.writeFile("db/db.json", JSON.stringify(notes), (err) => {
           if (err) {
             console.log(err);
             res.status(500).json({ error: `Error writing file: ${err}` });
