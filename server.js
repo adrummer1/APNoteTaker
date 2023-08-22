@@ -12,11 +12,11 @@ app.use(express.static("public"));
 
 app.use('/api', api);
 
-app.get('/htmlroutes', (req, res) => 
+app.get('/', (req, res) => 
     res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
-app.get('/apiroutes', (req, res) =>
+app.get('/api', (req, res) =>
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );    
 

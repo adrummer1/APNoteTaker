@@ -3,7 +3,7 @@ const api = require('express').Router();
 const uuid = require('../helpers/uuid');
 
 
-api.get("/api/notes", (req, res) => {
+api.get("/notes", (req, res) => {
     fs.readFile(__dirname + "/db/db.json", "utf8", (err, data) => {
       if (err) {
         console.log(err);
@@ -17,7 +17,7 @@ api.get("/api/notes", (req, res) => {
     });
   });
   
-  api.post("/api/notes", (req, res) => {
+  api.post("/notes", (req, res) => {
     fs.readFile(__dirname + "/db/db.json", "utf8", (err, data) => {
       if (err) {
         console.log(err);

@@ -9,7 +9,7 @@ const app = express();
 app.use('/apiroutes', apiRouter);
 app.use('/htmlroutes', htmlRouter);
 
-app.post('/api/notes', (req, res) => {
+app.post('/notes', (req, res) => {
     try {
         store.saveNote(req.body);
         res.sendStatus(200);
@@ -18,7 +18,7 @@ app.post('/api/notes', (req, res) => {
     }   
 });
 
-app.post('/api/notes/write', (req, res) => {
+app.post('/notes/write', (req, res) => {
     try {
         store.write(req.body);
         res.sendStatus(200);
@@ -27,7 +27,7 @@ app.post('/api/notes/write', (req, res) => {
     }   
 });
 
-app.post('/api/notes/get', (req, res) => {
+app.post('/notes/get', (req, res) => {
     try {
         const notes = store.getNotes();
         res.json(notes);
@@ -36,7 +36,7 @@ app.post('/api/notes/get', (req, res) => {
     }   
 });
 
-app.post('/api/notes/delete', (req, res) => {
+app.post('/notes/delete', (req, res) => {
     try {
         store.deleteNote();
         res.sendStatus(200);
