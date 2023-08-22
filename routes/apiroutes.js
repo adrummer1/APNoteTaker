@@ -9,9 +9,7 @@ api.get("/notes", (req, res) => {
         console.log(err);
         res.status(500).json({ error: `Error reading file: ${err}` });
       } else {
-        console.log(data);  
         const notes = JSON.parse(data);
-        console.log(notes);
         res.json(notes);
       }
     });
