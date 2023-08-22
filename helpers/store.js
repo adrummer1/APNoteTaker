@@ -12,7 +12,7 @@ class Store {
  }
 
 
- addNote(note) {
+ saveNote(note) {
   const { title, text } = note;
 
   if (!title || !text) {
@@ -47,7 +47,7 @@ class Store {
     })
  }
 
- removeNote() {
+ deleteNote() {
     return this.read()
     .then((data) => {
         const notes = JSON.parse(data) || [];
