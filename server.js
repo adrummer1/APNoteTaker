@@ -2,6 +2,7 @@ const express = require("express");
 const path = require('path');
 const api = require('./routes/apiroutes.js');
 const html = require('./routes/htmlroutes.js');
+const store = require('./helpers/store');
 
 const PORT = 3001
 
@@ -14,17 +15,14 @@ app.use(express.static("public"));
 app.use('/api', api);
 app.use('/', html);
 
-// app.get('/', (req, res) => 
-//     res.sendFile(path.join(__dirname, '/public/index.html'))
-// );
-
-// app.get('/api', (req, res) =>
-//     res.sendFile(path.join(__dirname, '/public/notes.html'))
-// );    
-
-// app.get('/notes', (req, res) =>
-//     res.sendFile(path.join(__dirname, '/public/notes.html'))
-// );
+app.post('/notes', (req, res) => {
+    try {
+        store.saveNote(req.body);
+        res.sendStatus(200);
+    } catch (error) {
+        res.status(500).json({ error: `${saveNote} could not be added.` })
+    }   
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
