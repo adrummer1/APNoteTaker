@@ -28,7 +28,7 @@ api.get("/notes", (req, res) => {
           id: uuid(),
         };
         notes.push(newNote);
-        fs.writeFile("db/db.json", JSON.stringify(notes), (err) => {
+        fs.writeFile("db/db.json", JSON.stringify(notes, null, 4), (err) => {
           if (err) {
             console.log(err);
             res.status(500).json({ error: `Error writing file: ${err}` });
@@ -39,5 +39,25 @@ api.get("/notes", (req, res) => {
       }
     });
   });
+
+api.delete("/notes/:id", (req, res) => {
+  fs.readFile("db/db.json", "utf8", (err, data) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: `Error reading file: ${err}` });
+    } else {
+      const notes = JSON.parse(data);
+      const updatedNotes = notes.filter( (note) => {return note.id != req.params.id});
+      fs.writeFile("db/db.json", JSON.stringify(updatedNotes, null, 4), (err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({ error: `Error writing file: ${err}` });
+        } else {
+          res.json(updatedNotes);
+        }
+      });
+    }
+  });
+})
 
   module.exports = api

@@ -15,15 +15,6 @@ app.use(express.static("public"));
 app.use('/api', api);
 app.use('/', html);
 
-app.post('/notes', (req, res) => {
-    try {
-        store.saveNote(req.body);
-        res.sendStatus(200);
-    } catch (error) {
-        res.status(500).json({ error: `${saveNote} could not be added.` })
-    }   
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
