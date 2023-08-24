@@ -1,8 +1,10 @@
 const fs = require("fs");
+// Set api vaiable and importing Router
 const api = require('express').Router();
+// Importing unique ID parameters for notes
 const uuid = require('../helpers/uuid');
 
-
+// Establishing GET command for notes
 api.get("/notes", (req, res) => {
     fs.readFile("db/db.json", "utf8", (err, data) => {
       if (err) {
@@ -15,6 +17,7 @@ api.get("/notes", (req, res) => {
     });
   });
   
+  // Establishing POST instructions for adding new notes in the application
   api.post("/notes", (req, res) => {
     fs.readFile("db/db.json", "utf8", (err, data) => {
       if (err) {
@@ -40,6 +43,7 @@ api.get("/notes", (req, res) => {
     });
   });
 
+// Establishing DELETE instructions to remove notes based on unique ID
 api.delete("/notes/:id", (req, res) => {
   fs.readFile("db/db.json", "utf8", (err, data) => {
     if (err) {
